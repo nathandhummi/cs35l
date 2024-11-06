@@ -18,13 +18,12 @@ app.use((req, res, next) =>{
 })
 //uses all the routes from routes folder as our route.
 app.use('/api/notes',noteRoutes)
-
 //connect to database, our URI/password needs to be correct
-mongoose.connect('mongodb+srv://matthewma003:test123@cluster0.d9fol.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect(process.env.MONGO_URI)
     .then(()=>{
         //listen for requests once we are connnected the database
         app.listen(4000, () => {
-            console.log('connected to database and listening on port', 4000)
+            console.log('connected to database and listening on port', process.env.PORT)
         })
         
     })
