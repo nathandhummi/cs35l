@@ -6,16 +6,24 @@ const express = require('express')
 const noteRoutes = require('./routes/notes')
 //importing mongoose
 const mongoose = require('mongoose')
-
+//use cors to connect frontend with backend
+const cors = require('cors');
+const corsOptions = {
+    origin: "*",
+    credentials: true,
+    optionsSuccessStatus: 200
+}
 //express app
 const app = express()
 
 //middleware that logs the activies of the get,post,put,delete requests
+
 app.use(express.json())
 app.use((req, res, next) =>{
     console.log(req.path, req.method)
     next()
 })
+app.use(cors(corsOptions))
 //uses all the routes from routes folder as our route.
 app.use('/api/notes',noteRoutes)
 //connect to database, our URI/password needs to be correct
