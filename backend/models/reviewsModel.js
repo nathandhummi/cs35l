@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 
-const notesSchema = new Schema({
+const reviewsSchema = new Schema({
     title: {
         type: String,
         required: true
@@ -14,4 +14,4 @@ const notesSchema = new Schema({
     //might want to add more properties later.
 }, {timestamps: true})
 
-module.exports = mongoose.model('Note', notesSchema)
+module.exports = mongoose.model('Review', reviewsSchema)

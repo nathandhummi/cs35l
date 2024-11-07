@@ -3,7 +3,7 @@ require('dotenv').config()
 
 const express = require('express')
 //access our routes from routes folder
-const noteRoutes = require('./routes/notes')
+const noteRoutes = require('./routes/reviews')
 //importing mongoose
 const mongoose = require('mongoose')
 //use cors to connect frontend with backend
@@ -25,7 +25,7 @@ app.use((req, res, next) =>{
 })
 app.use(cors(corsOptions))
 //uses all the routes from routes folder as our route.
-app.use('/api/notes',noteRoutes)
+app.use('/api/reviews',noteRoutes)
 //connect to database, our URI/password needs to be correct
 mongoose.connect(process.env.MONGO_URI)
     .then(()=>{
