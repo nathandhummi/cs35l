@@ -2,10 +2,8 @@
 const express = require('express')
 const {createReview, getReviews, getReview
 
-} = require('../controllers/reviewControllers')
+} = require('../controllers/reviewController')
 
-//get reviewsModel from models file
-const Review = require('../models/reviewsModel')
 
 const router = express.Router()
 
