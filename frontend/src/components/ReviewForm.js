@@ -1,6 +1,9 @@
 import { useState } from 'react'
+import { useReviewsContext } from '../hooks/useReviewsContext'
 
 const ReviewForm = () => {
+  const { dispatch } = useReviewsContext()
+
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   // const [stars, setStars] = useState('')
@@ -29,6 +32,7 @@ const ReviewForm = () => {
       setTitle('')
       setDescription('')
       console.log('new review added:', json)
+      dispatch({type: 'CREATE_REVIEWS', payload: json})
     }
 
   }

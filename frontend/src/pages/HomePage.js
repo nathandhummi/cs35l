@@ -1,24 +1,29 @@
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react'
+import { useReviewsContext } from '../hooks/useReviewsContext'
 
 // components
 import ReviewDetails from '../components/ReviewDetails'
 import ReviewForm from '../components/ReviewForm'
 
 const Home = () => {
-    const [reviews, setReviews] = useState(null);
+    // dont need this useState because using global state from context
+    //const [reviews, setReviews] = useState(null);
+    const { reviews, dispatch } = useReviewsContext()
   
     useEffect(() => {
       const fetchReviews = async () => {
-        const response = await fetch('/api/reviews');
-        const json = await response.json();
+        const response = await fetch('/api/reviews')
+        const json = await response.json()
   
         if (response.ok) {
-          setReviews(json);
+          // fire dispatch function in turn, fires reviewsReducer function
+          // and passes in the action which is down here
+          dispatch({type: 'SET_REVIEWS', payload: json})
         }
-      };
+      }
   
-      fetchReviews();
-    }, []);
+      fetchReviews()
+    }, [dispatch])
   
     return (
       <div className="home">
@@ -29,7 +34,7 @@ const Home = () => {
         </div>
         <ReviewForm />
       </div>
-    );
-};
+    )
+}
 
-export default Home;
+export default Home
