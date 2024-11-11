@@ -18,6 +18,7 @@ const Home = () => {
         if (response.ok) {
           // fire dispatch function in turn, fires reviewsReducer function
           // and passes in the action which is down here
+          console.log(json)
           dispatch({type: 'SET_REVIEWS', payload: json})
         }
       }
@@ -29,7 +30,7 @@ const Home = () => {
       <div className="home">
         <div className="notes">
           {reviews && reviews.map(review => (
-            <ReviewDetails key={review._id} review={review} />
+            <ReviewDetails review={review} key={review._id}/>
           ))}
         </div>
         <ReviewForm />

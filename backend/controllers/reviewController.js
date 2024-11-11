@@ -35,12 +35,45 @@ const createReview = async (req, res) => {
 }
 
 //DELETE a review
+const deleteReview = async (req, res) => {
+    const { id } = req.params
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({error: 'No such review'})
+    }
+  
+    const review = await Review.findOneAndDelete({_id: id})
+  
+    if(!review) {
+      return res.status(400).json({error: 'No such review'})
+    }
+  
+    res.status(200).json(review)
+  }
 
 //UPDATE a review
-
+const updateReview = async (req, res) => {
+    const { id } = req.params
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({error: 'No such review'})
+    }
+  
+    const review = await Review.findOneAndUpdate({_id: id}, {
+      ...req.body
+    })
+  
+    if (!review) {
+      return res.status(400).json({error: 'No such review'})
+    }
+  
+    res.status(200).json(review)
+}
 
 module.exports = {
     createReview,
     getReviews,
-    getReview
+    getReview,
+    deleteReview,
+    updateReview
 }

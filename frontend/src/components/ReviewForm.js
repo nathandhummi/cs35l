@@ -32,7 +32,7 @@ const ReviewForm = () => {
       setTitle('')
       setDescription('')
       console.log('new review added:', json)
-      dispatch({type: 'CREATE_REVIEWS', payload: json})
+      dispatch({type: 'CREATE_REVIEW', payload: json})
     }
 
   }

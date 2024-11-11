@@ -8,9 +8,14 @@ export const reviewsReducer = (state, action) => {
             return {
                 reviews: action.payload
             }
-        case 'CREATE_REVIEWS':
+        case 'CREATE_REVIEW':
             return {
                 reviews: [action.payload, ...state.reviews]
+            }
+        case 'DELETE_REVIEW':
+            return {
+                // keep only the reviews not equal to the one we have the id for
+                reviews: state.reviews.filter(r => r._id !== action.payload._id)
             }
         default:
             return state

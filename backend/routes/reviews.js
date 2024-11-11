@@ -1,6 +1,6 @@
 //we want to be able to access from server.js to thie file
 const express = require('express')
-const {createReview, getReviews, getReview
+const {createReview, getReviews, getReview, deleteReview, updateReview
 
 } = require('../controllers/reviewController')
 
@@ -17,14 +17,10 @@ router.get('/:id', getReview)
 router.post('/', createReview)
 
 //DELETE a review
-router.delete('/:id', (req, res) => {
-    res.json({'mssg': 'DELETE a new review'})
-})
+router.delete('/:id', deleteReview)
 
 //UPDATE a review
-router.patch('/:id', (req, res) => {
-    res.json({'mssg': 'UPDATE a new review'})
-})
+router.patch('/:id', updateReview)
 
 
 module.exports = router
