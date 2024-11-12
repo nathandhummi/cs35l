@@ -26,6 +26,22 @@ const getReview = async (req, res) => {
 //POST a new review
 const createReview = async (req, res) => {
     const{title, description} = req.body
+
+    // array to check if user left any fields empty
+    let emptyFields = []
+
+    if (!title) {
+        emptyFields.push('title')
+    }
+    if (!description) {
+        emptyFields.push('description')
+    }
+
+    // check if anything inside empty fields
+    if (emptyFields.length > 0) {
+        return res.status(400).json({ error: 'Please fill in all the fields', emptyFields })
+    }
+
     try{
         const review = await Review.create({title, description})
         res.status(200).json(review)

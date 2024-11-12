@@ -1,5 +1,8 @@
 import { useReviewsContext } from "../hooks/useReviewsContext"
 
+// date fns
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+
 const ReviewDetails = ({ review }) => {
     const { dispatch } = useReviewsContext()
 
@@ -18,8 +21,8 @@ const ReviewDetails = ({ review }) => {
         <div className = "review-details">
             <h4>{review.title}</h4>
             <p><strong>Review: </strong>{review.description}</p>
-            <p>{review.createdAt}</p>
-            <span onClick={handleClick}>delete</span>
+            <p>{formatDistanceToNow(new Date(review.createdAt), { addSuffix: true })}</p>
+            <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
         </div>
     )
 }

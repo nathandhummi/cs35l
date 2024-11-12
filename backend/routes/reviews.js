@@ -1,7 +1,11 @@
 //we want to be able to access from server.js to thie file
 const express = require('express')
-const {createReview, getReviews, getReview, deleteReview, updateReview
-
+const {
+    createReview, 
+    getReviews, 
+    getReview, 
+    deleteReview, 
+    updateReview
 } = require('../controllers/reviewController')
 
 

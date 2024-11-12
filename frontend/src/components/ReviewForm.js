@@ -8,6 +8,7 @@ const ReviewForm = () => {
   const [description, setDescription] = useState('')
   // const [stars, setStars] = useState('')
   const [error, setError] = useState(null)
+  const [emptyFields, setEmptyFields] = useState([])
 
   const handleSubmit = async (e) => {
     // default is reloading page so prevent this from happening
@@ -26,9 +27,11 @@ const ReviewForm = () => {
 
     if (!response.ok) {
       setError(json.error)
+      setEmptyFields(json.emptyFields)
     }
     if (response.ok) {
       setError(null)
+      setEmptyFields([])
       setTitle('')
       setDescription('')
       console.log('new review added:', json)
@@ -46,13 +49,15 @@ const ReviewForm = () => {
         type="text" 
         onChange={(e) => setTitle(e.target.value)} 
         value={title}
+        className={emptyFields.includes('title') ? 'error' : ''}
       />
 
       <label>Description:</label>
       <input 
-        type="text" 
+        type="text"
         onChange={(e) => setDescription(e.target.value)} 
         value={description}
+        className={emptyFields.includes('description') ? 'error' : ''}
       />
 
       <button>Add Review</button>
