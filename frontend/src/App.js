@@ -10,11 +10,13 @@ function App() {
   useEffect(() => {
     const fetchMenus = async () => {
       try {
-        const response = await fetch('/api/menus'); // Replace '/menus' with your actual endpoint
+        const response = await fetch('http://localhost:4000/api/menus'); 
+        console.log("response:", response)
         if (!response.ok) {
           throw new Error('Failed to fetch menus');
         }
         const data = await response.json();
+        console.log("data in App.js: ", data)
         setMenus(data);
       } catch (error) {
         setError(error.message);
@@ -41,10 +43,9 @@ function App() {
       {menus.length > 0 ? (
         <ul>
           {menus.map((menu) => (
-            <li key={menu.id}> {/* Assuming 'id' is a unique identifier */}
+            <li key={menu._id}> {/* Assuming 'id' is a unique identifier */}
               <h3>{menu.name}</h3>
-              <p>{menu.description}</p>
-              {/* Add any other details you want to display */}
+              <p>{menu.diningHallId}</p>
             </li>
           ))}
         </ul>

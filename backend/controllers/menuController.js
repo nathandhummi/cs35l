@@ -1,11 +1,13 @@
 const Menu = require('../models/menuModel');
+const mongoose = require('mongoose');
 
-exports.getMenusByDiningHall = async (req, res) => {
-  try {
-    const menus = await Menu.find({ diningHallId: req.params.diningHallId }); // Adjust based on your schema
-    res.status(200).json(menus);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching menus' });
-  }
+// Getting all the menus
+const getMenus = async (req, res) => {
+  const menus = await Menu.find({}).sort({ createdAt: -1 }); // Adjust sorting if needed
+
+  res.status(200).json(menus);
 };
 
+module.exports = {
+  getMenus
+};

@@ -1,12 +1,13 @@
 const express = require('express')
-const router = express.Router()
 const {
-    getMenusByDiningHall
+    getMenusByDiningHall,
+    getMenus
 } = require('../controllers/menuController')
 
+const router = express.Router()
 
 
 
-router.get('/', getMenusByDiningHall)
+router.get('/', getMenus)
 
 module.exports = router
