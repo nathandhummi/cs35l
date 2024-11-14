@@ -1,10 +1,12 @@
 // src/App.js
 import React, { useState, useEffect } from 'react';
+import DiningHallSelector from './components/DiningHallSelector'
 
 function App() {
   const [menus, setMenus] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedDiningHall, setSelectedDiningHall] = useState('');
 
   // Fetch menus from backend
   useEffect(() => {
@@ -28,6 +30,10 @@ function App() {
     fetchMenus();
   }, []);
 
+  const handleSelectDiningHall = (diningHall) => {
+    setSelectedDiningHall(diningHall);
+  };
+
   // Render the UI
   if (loading) {
     return <div>Loading...</div>;
@@ -40,6 +46,10 @@ function App() {
   return (
     <div className="App">
       <h1>Menu List</h1>
+      <DiningHallSelector
+        selectedDiningHall={selectedDiningHall}
+        onSelect={handleSelectDiningHall}
+      />
       {menus.length > 0 ? (
         <ul>
           {menus.map((menu) => (

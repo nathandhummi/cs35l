@@ -8,6 +8,17 @@ const getMenus = async (req, res) => {
   res.status(200).json(menus);
 };
 
+const getMenusByDiningHall = async (req, res) => {
+  const { diningHallId } = req.params;
+  try {
+    const menus = await Menu.find({ diningHallId: diningHallId });
+    res.status(200).json(menus);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching menus' });
+  }
+}
+
 module.exports = {
-  getMenus
+  getMenus,
+  getMenusByDiningHall
 };
