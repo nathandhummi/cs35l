@@ -6,7 +6,6 @@ const express = require('express')
 const noteRoutes = require('./routes/reviews')
 const menuRoutes = require('./routes/menus')
 const foodItemsRoutes = require('./routes/foodItems');
-app.use('/api/foodItems', foodItemsRoutes);
 
 
 //importing mongoose
@@ -24,12 +23,13 @@ const app = express()
 //middleware that logs the activies of the get,post,put,delete requests
 
 app.use(express.json())
+app.use(cors(corsOptions))
 
+app.use('/api/foodItems', foodItemsRoutes);
 app.use((req, res, next) =>{
     console.log(req.path, req.method)
     next()
 })
-app.use(cors(corsOptions))
 //uses all the routes from routes folder as our route.
 app.use('/api/reviews',noteRoutes)
 app.use('/api/menus', menuRoutes);
