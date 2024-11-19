@@ -1,12 +1,14 @@
 // Import necessary libraries and components
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import useFetchFoodItems from './hooks/useFetchFoodItems';
 import fetchAllFoodItems from './api/fetchAllFoodItems'; // Adjust path if necessary
 
 // Main component to display the list of food items
 const FoodItemList = () => {
     // State for storing the filters applied by the user, initialized as an empty object
     const [filters, setFilters] = useState({});
+    const foodItems = useFetchFoodItems();
 
     // Function to handle filtering by dining hall; updates the filters state and triggers a refetch
     const handleDiningHallFilter = (diningHall) => {
@@ -17,7 +19,7 @@ const FoodItemList = () => {
     // Fetch data with react-query based on the current filters
     const { isError, isLoading, data, error, isSuccess, refetch } = useQuery({
         queryKey: ['food-items', filters], // Unique key for caching, includes filters for dependency tracking
-        queryFn: () => fetchAllFoodItems(filters), // The function to fetch data based on current filters
+        queryFn: () => fetchAllFoodItems(foodItems, filters), // The function to fetch data based on current filters
     });
 
     // Conditional rendering to handle loading and error states

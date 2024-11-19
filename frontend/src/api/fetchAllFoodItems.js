@@ -1,6 +1,31 @@
 // api/fetchAllFoodItems.js
+/*const [foodItems, setFoodItems] = useState([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState(null);*/
+/*
+useEffect(() => {
+    const fetchFoodItems = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/api/fooditems'); 
+        console.log("response:", response)
+        if (!response.ok) {
+          throw new Error('Failed to fetch menus');
+        }
+        const data = await response.json();
+        console.log("data in App.js: ", data)
+        setFoodItems(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-// Mock data for food items
+    fetchFoodItems();
+  }, []);*/
+
+
+/*// Mock data for food items
 const foodItems = [
     { id: 1, name: 'Pasta', diningHall: 'De Neve', image: 'pasta.jpg' },
     { id: 2, name: 'Salad', diningHall: 'B-Plate', image: 'salad.jpg' },
@@ -10,10 +35,14 @@ const foodItems = [
     { id: 6, name: 'Tacos', diningHall: 'B-Plate', image: 'tacos.jpg' },
     { id: 7, name: 'Ramen', diningHall: 'Epicuria', image: 'ramen.jpg' },
     { id: 8, name: 'Dim Sum', diningHall: 'Feast', image: 'dimsum.jpg' },
-];
+];*/
+
+//import useFetchFoodItems from '../hooks/useFetchFoodItems';
+
+//const foodItems = useFetchFoodItems();
 
 // Function to simulate fetching data with filters
-const fetchAllFoodItems = async (filters) => {
+const fetchAllFoodItems = async (foodItems, filters) => {
     const { diningHall } = filters;
 
     // Filter food items based on the dining hall if provided
