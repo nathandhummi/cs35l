@@ -5,6 +5,10 @@ const express = require('express')
 //access our routes from routes folder
 const noteRoutes = require('./routes/reviews')
 const menuRoutes = require('./routes/menus')
+const foodItemsRoutes = require('./routes/foodItems');
+app.use('/api/foodItems', foodItemsRoutes);
+
+
 //importing mongoose
 const mongoose = require('mongoose')
 //use cors to connect frontend with backend
