@@ -5,7 +5,8 @@ const {
     getReviews, 
     getReview, 
     deleteReview, 
-    updateReview
+    updateReview,
+    getReviewsByFoodItem
 } = require('../controllers/reviewController')
 
 
@@ -25,6 +26,8 @@ router.delete('/:id', deleteReview)
 
 //UPDATE a review
 router.patch('/:id', updateReview)
+
+router.get('/:foodItemId', getReviewsByFoodItem);
 
 
 module.exports = router

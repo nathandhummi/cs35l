@@ -1,6 +1,26 @@
 const Review = require('../models/reviewsModel')
 const mongoose = require('mongoose')
 
+const getReviewsByFoodItem = async (req, res) => {
+    const { foodItemId } = req.params; // Extract the foodItemId from the request parameters
+
+    // Validate the foodItemId
+    if (!mongoose.Types.ObjectId.isValid(foodItemId)) {
+        return res.status(400).json({ error: 'Invalid food item ID' });
+    }
+
+    try {
+        // Find reviews with the specified foodItem ObjectId
+        const reviews = await Review.find({ foodItem: foodItemId }).sort({ createdAt: -1 });
+
+        // Send the reviews back to the client
+        res.status(200).json(reviews);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
 //getting all the reviews
 const getReviews = async (req, res) => {
     const reviews = await Review.find({}).sort({createdAt: -1})
@@ -49,10 +69,10 @@ const createReview = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(foodItemId)) {
         return res.status(400).json({ error: 'Invalid food item ID' });
     }
-
+    const foodItemObjectId = new mongoose.Types.ObjectId(foodItemId); 
     try {
         // Create the review with the foodItemId reference
-        const review = await Review.create({ title, description, foodItem: foodItemId });
+        const review = await Review.create({ title, description, foodItem: foodItemObjectId });
         res.status(200).json(review);
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -101,5 +121,6 @@ module.exports = {
     getReviews,
     getReview,
     deleteReview,
-    updateReview
+    updateReview,
+    getReviewsByFoodItem
 }
