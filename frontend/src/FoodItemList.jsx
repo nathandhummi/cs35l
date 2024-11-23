@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import fetchAllFoodItems from './api/fetchAllFoodItems'; // Adjust path if necessary
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 // Main component to display the list of food items
 const FoodItemList = () => {
@@ -10,8 +11,10 @@ const FoodItemList = () => {
 
     // Function to handle filtering by dining hall; updates the filters state and triggers a refetch
     const handleDiningHallFilter = (diningHall) => {
-        setFilters({ ...filters, diningHall }); // Update the filters object with a new dining hall filter
-        refetch(); // Manually trigger a refetch of the query to apply the updated filter
+        const newFilters = { ...filters, diningHall };
+        console.log("Updated filters: ", newFilters); // Check if filters are updated correctly
+        setFilters(newFilters);
+        refetch();
     };
 
     // Fetch data with react-query based on the current filters
@@ -39,11 +42,12 @@ const FoodItemList = () => {
             {isSuccess && data?.length > 0 ? (
                 <ul>
                     {data.map((foodItem) => (
-                        <li key={foodItem.id}> {/* Each food item is uniquely identified by its ID */}
+                        <li key={foodItem._id}> {/* Each food item is uniquely identified by its ID */}
                             <h2>{foodItem.name}</h2> {/* Display the name of the food item */}
                             <p>Category: {foodItem.diningHall}</p> {/* Display the dining hall associated with the item */}
                             {/* Conditionally render the image if available, with a fixed width of 100px */}
                             {foodItem.image && <img src={foodItem.image} alt={foodItem.name} style={{ width: '100px' }} />}
+                            <Link to={`/reviews/${foodItem._id}`}>View Reviews</Link>
                         </li>
                     ))}
                 </ul>

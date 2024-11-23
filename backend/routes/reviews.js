@@ -18,7 +18,7 @@ router.get('/', getReviews)
 router.get('/:id', getReview)
 
 //POST a new review
-router.post('/', createReview)
+router.post('/:id', createReview)
 
 //DELETE a review
 router.delete('/:id', deleteReview)

@@ -10,8 +10,8 @@ const reviewsSchema = new Schema({
     description: {
         type: String,
         required: true
-    }
-    //might want to add more properties later.
+    },
+    foodItem: { type: mongoose.Schema.Types.ObjectId, ref: 'FoodItem', required: true }, 
 }, {timestamps: true})
 
 module.exports = mongoose.model('Review', reviewsSchema)

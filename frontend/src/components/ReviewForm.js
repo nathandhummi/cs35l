@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useReviewsContext } from '../hooks/useReviewsContext'
 
-const ReviewForm = () => {
+const ReviewForm = ({foodItemId}) => {
   const { dispatch } = useReviewsContext()
 
   const [title, setTitle] = useState('')
@@ -14,9 +14,9 @@ const ReviewForm = () => {
     // default is reloading page so prevent this from happening
     e.preventDefault()
 
-    const review = {title, description}
+    const review = {title, description, foodItemId}
     
-    const response = await fetch('/api/reviews', {
+    const response = await fetch('/api/reviews/:id', {
       method: 'POST',
       body: JSON.stringify(review),
       headers: {

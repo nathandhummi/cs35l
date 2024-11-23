@@ -25,30 +25,40 @@ const getReview = async (req, res) => {
 
 //POST a new review
 const createReview = async (req, res) => {
-    const{title, description} = req.body
+    const { title, description, foodItemId } = req.body; // Destructure foodItemId from request body
 
-    // array to check if user left any fields empty
-    let emptyFields = []
+    // Array to check if user left any fields empty
+    let emptyFields = [];
 
     if (!title) {
-        emptyFields.push('title')
+        emptyFields.push('title');
     }
     if (!description) {
-        emptyFields.push('description')
+        emptyFields.push('description');
+    }
+    if (!foodItemId) {
+        emptyFields.push('foodItemId'); // Ensure foodItemId is not empty
     }
 
-    // check if anything inside empty fields
+    // Check if any fields are empty
     if (emptyFields.length > 0) {
-        return res.status(400).json({ error: 'Please fill in all the fields', emptyFields })
+        return res.status(400).json({ error: 'Please fill in all the fields', emptyFields });
     }
 
-    try{
-        const review = await Review.create({title, description})
-        res.status(200).json(review)
-    } catch(error){
-        res.status(400).json({error: error.message})
+    // Validate foodItemId
+    if (!mongoose.Types.ObjectId.isValid(foodItemId)) {
+        return res.status(400).json({ error: 'Invalid food item ID' });
     }
-}
+
+    try {
+        // Create the review with the foodItemId reference
+        const review = await Review.create({ title, description, foodItem: foodItemId });
+        res.status(200).json(review);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 
 //DELETE a review
 const deleteReview = async (req, res) => {
