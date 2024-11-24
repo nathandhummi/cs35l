@@ -13,7 +13,8 @@ const ReviewPage = () => {
     useEffect(() => {
         const fetchReviews = async () => {
             try {
-                const response = await fetch(`/api/reviews`); // Fetch reviews for a specific food item
+                console.log("Food Item ID: " + foodItemId);
+                const response = await fetch(`/api/reviews/${foodItemId}`); // Fetch reviews for a specific food item
                 const json = await response.json();
 
                 if (response.ok) {

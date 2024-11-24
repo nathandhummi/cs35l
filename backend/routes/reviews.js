@@ -3,7 +3,6 @@ const express = require('express')
 const {
     createReview, 
     getReviews, 
-    getReview, 
     deleteReview, 
     updateReview,
     getReviewsByFoodItem
@@ -16,7 +15,8 @@ const router = express.Router()
 router.get('/', getReviews)
 
 //get a single review
-router.get('/:id', getReview)
+//router.get('/:id', getReview)
+router.get('/:foodItemId', getReviewsByFoodItem);
 
 //POST a new review
 router.post('/:id', createReview)
@@ -26,8 +26,6 @@ router.delete('/:id', deleteReview)
 
 //UPDATE a review
 router.patch('/:id', updateReview)
-
-router.get('/:foodItemId', getReviewsByFoodItem);
 
 
 module.exports = router

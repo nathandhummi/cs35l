@@ -4,6 +4,8 @@ const mongoose = require('mongoose')
 const getReviewsByFoodItem = async (req, res) => {
     const { foodItemId } = req.params; // Extract the foodItemId from the request parameters
 
+    console.log(`getReviewsByFoodItem called with foodItemId: ${foodItemId}`); // Debugging log
+
     // Validate the foodItemId
     if (!mongoose.Types.ObjectId.isValid(foodItemId)) {
         return res.status(400).json({ error: 'Invalid food item ID' });
@@ -29,7 +31,7 @@ const getReviews = async (req, res) => {
 }
 
 //get a single review
-const getReview = async (req, res) => {
+/*const getReview = async (req, res) => {
     const {id} = req.params
     //make sure that the node id is valid. if not throw an error.
     if (!mongoose.Types.ObjectId.isValid(id)){
@@ -41,7 +43,7 @@ const getReview = async (req, res) => {
     }
 
     res.status(200).json(review)
-}
+}*/
 
 //POST a new review
 const createReview = async (req, res) => {
@@ -119,7 +121,6 @@ const updateReview = async (req, res) => {
 module.exports = {
     createReview,
     getReviews,
-    getReview,
     deleteReview,
     updateReview,
     getReviewsByFoodItem
