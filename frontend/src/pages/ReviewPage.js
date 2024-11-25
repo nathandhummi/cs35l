@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'; // Import useParams to get foodItemId
 import { useReviewsContext } from '../hooks/useReviewsContext';
 
@@ -9,6 +9,29 @@ import ReviewForm from '../components/ReviewForm';
 const ReviewPage = () => {
     const { reviews, dispatch } = useReviewsContext();
     const { id: foodItemId } = useParams(); // Extract foodItemId from the URL
+    const [foodItemName, setFoodItemName] = useState(''); // State to store the food item name
+
+    useEffect(() => {
+        const fetchFoodItem = async () => {
+            try {
+                const response = await fetch(`/api/foodItems/${foodItemId}`); // Fetch food item details
+                const json = await response.json();
+
+                if (response.ok) {
+                    console.log("Fetched food item:", json); // Debugging log
+                    setFoodItemName(json.name); // Update the food item name
+                } else {
+                    console.error("Failed to fetch food item:", json);
+                }
+            } catch (error) {
+                console.error("Network error:", error);
+            }
+        };
+
+        if (foodItemId) {
+            fetchFoodItem(); // Fetch food item details when foodItemId is available
+        }
+    }, [foodItemId]);
 
     useEffect(() => {
         const fetchReviews = async () => {
@@ -35,7 +58,7 @@ const ReviewPage = () => {
 
     return (
         <div className="review-page">
-            <h1>Reviews for Food Item</h1>
+            <h1>Reviews for {foodItemName || 'Food Item'}</h1> {/* Display the food item name */}
             <div className="reviews">
                 {reviews && reviews.length > 0 ? (
                     reviews.map((review) => (
