@@ -1,6 +1,28 @@
 const Review = require('../models/reviewsModel')
 const mongoose = require('mongoose')
 
+const getReviewsByFoodItem = async (req, res) => {
+    const { foodItemId } = req.params; // Extract the foodItemId from the request parameters
+
+    console.log(`getReviewsByFoodItem called with foodItemId: ${foodItemId}`); // Debugging log
+
+    // Validate the foodItemId
+    if (!mongoose.Types.ObjectId.isValid(foodItemId)) {
+        return res.status(400).json({ error: 'Invalid food item ID' });
+    }
+
+    try {
+        // Find reviews with the specified foodItem ObjectId
+        const reviews = await Review.find({ foodItem: foodItemId }).sort({ createdAt: -1 });
+
+        // Send the reviews back to the client
+        res.status(200).json(reviews);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
 //getting all the reviews
 const getReviews = async (req, res) => {
     const reviews = await Review.find({}).sort({createdAt: -1})
@@ -9,7 +31,7 @@ const getReviews = async (req, res) => {
 }
 
 //get a single review
-const getReview = async (req, res) => {
+/*const getReview = async (req, res) => {
     const {id} = req.params
     //make sure that the node id is valid. if not throw an error.
     if (!mongoose.Types.ObjectId.isValid(id)){
@@ -21,34 +43,44 @@ const getReview = async (req, res) => {
     }
 
     res.status(200).json(review)
-}
+}*/
 
 //POST a new review
 const createReview = async (req, res) => {
-    const{title, description} = req.body
+    const { title, description, foodItemId } = req.body; // Destructure foodItemId from request body
 
-    // array to check if user left any fields empty
-    let emptyFields = []
+    // Array to check if user left any fields empty
+    let emptyFields = [];
 
     if (!title) {
-        emptyFields.push('title')
+        emptyFields.push('title');
     }
     if (!description) {
-        emptyFields.push('description')
+        emptyFields.push('description');
+    }
+    if (!foodItemId) {
+        emptyFields.push('foodItemId'); // Ensure foodItemId is not empty
     }
 
-    // check if anything inside empty fields
+    // Check if any fields are empty
     if (emptyFields.length > 0) {
-        return res.status(400).json({ error: 'Please fill in all the fields', emptyFields })
+        return res.status(400).json({ error: 'Please fill in all the fields', emptyFields });
     }
 
-    try{
-        const review = await Review.create({title, description})
-        res.status(200).json(review)
-    } catch(error){
-        res.status(400).json({error: error.message})
+    // Validate foodItemId
+    if (!mongoose.Types.ObjectId.isValid(foodItemId)) {
+        return res.status(400).json({ error: 'Invalid food item ID' });
     }
-}
+    const foodItemObjectId = new mongoose.Types.ObjectId(foodItemId); 
+    try {
+        // Create the review with the foodItemId reference
+        const review = await Review.create({ title, description, foodItem: foodItemObjectId });
+        res.status(200).json(review);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 
 //DELETE a review
 const deleteReview = async (req, res) => {
@@ -89,7 +121,7 @@ const updateReview = async (req, res) => {
 module.exports = {
     createReview,
     getReviews,
-    getReview,
     deleteReview,
-    updateReview
+    updateReview,
+    getReviewsByFoodItem
 }

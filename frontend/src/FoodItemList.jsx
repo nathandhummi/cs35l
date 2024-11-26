@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import fetchAllFoodItems from './api/fetchAllFoodItems'; // Adjust path if necessary
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 // Main component to display the list of food items
 const FoodItemList = () => {
@@ -46,6 +47,7 @@ const FoodItemList = () => {
                             <p>Category: {foodItem.diningHall}</p> {/* Display the dining hall associated with the item */}
                             {/* Conditionally render the image if available, with a fixed width of 100px */}
                             {foodItem.image && <img src={foodItem.image} alt={foodItem.name} style={{ width: '100px' }} />}
+                            <Link to={`/reviews/${foodItem._id}`}>View Reviews</Link>
                         </li>
                     ))}
                 </ul>
