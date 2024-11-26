@@ -5,6 +5,10 @@ const express = require('express')
 //access our routes from routes folder
 const reviewRoutes = require('./routes/reviews')
 const foodItemsRoutes = require('./routes/foodItems');
+const passport = require('./passport'); // Import the configured passport file
+const authRoutes = require('./routes/authRoutes'); // Create auth routes
+const session = require('express-session'); // Used for User Authentication
+
 
 
 //importing mongoose
@@ -24,7 +28,25 @@ const app = express()
 app.use(express.json())
 app.use(cors(corsOptions))
 
+// Middleware for sessions
+app.use(
+    session({
+      secret: process.env.SESSION_SECRET, // Store in .env for security, // Replace with a secure key
+      resave: false,
+      saveUninitialized: false,
+    })
+  );
+
+// Initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 app.use('/api/foodItems', foodItemsRoutes);
+
+// Routes for Authentication
+app.use('/auth', authRoutes);
+
 app.use((req, res, next) =>{
     console.log(req.path, req.method)
     next()
