@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom'; // Import useParams to get foodItemId
+import { useParams, useNavigate } from 'react-router-dom'; // Import useParams to get foodItemId
 import { useReviewsContext } from '../hooks/useReviewsContext';
+
 
 // components
 import ReviewDetails from '../components/ReviewDetails';
@@ -10,6 +11,7 @@ const ReviewPage = () => {
     const { reviews, dispatch } = useReviewsContext();
     const { id: foodItemId } = useParams(); // Extract foodItemId from the URL
     const [foodItemName, setFoodItemName] = useState(''); // State to store the food item name
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchFoodItem = async () => {
@@ -58,6 +60,7 @@ const ReviewPage = () => {
 
     return (
         <div className="review-page">
+            <button onClick={() => navigate(-1)}>Go Back</button> {/* Go back to the previous page */}
             <h1>Reviews for {foodItemName || 'Food Item'}</h1> {/* Display the food item name */}
             <div className="reviews">
                 {reviews && reviews.length > 0 ? (
