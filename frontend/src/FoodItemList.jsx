@@ -38,7 +38,7 @@ const FoodItemList = () => {
                 <button onClick={() => handleDiningHallFilter('B-Plate')}>B-Plate</button>
                 <button onClick={() => handleDiningHallFilter('Epicuria')}>Epicuria</button>
                 <button onClick={() => handleDiningHallFilter('Feast')}>Feast</button>
-                <button onClick={() => handleDiningHallFilter(null)}>All Categories</button>
+                <button onClick={() => handleDiningHallFilter(null)}>All Dining Halls</button>
             </div>
             {/* Conditionally render the food items list if data is successfully fetched and not empty */}
             {isSuccess && data?.length > 0 ? (
@@ -46,7 +46,7 @@ const FoodItemList = () => {
                     {data.map((foodItem) => (
                         <li key={foodItem._id}> {/* Each food item is uniquely identified by its ID */}
                             <h2>{foodItem.name}</h2> {/* Display the name of the food item */}
-                            <p>Category: {foodItem.diningHall}</p> {/* Display the dining hall associated with the item */}
+                            <p>Dining Halls: {foodItem.diningHall}</p> {/* Display the dining hall associated with the item */}
                             {/* Conditionally render the image if available, with a fixed width of 100px */}
                             {foodItem.image && <img src={foodItem.image} alt={foodItem.name} style={{ width: '100px' }} />}
                             <Link to={`/reviews/${foodItem._id}`}>View Reviews</Link>
