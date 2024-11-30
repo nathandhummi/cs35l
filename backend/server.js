@@ -8,6 +8,7 @@ const foodItemsRoutes = require('./routes/foodItems');
 const passport = require('./passport'); // Import the configured passport file
 const authRoutes = require('./routes/authRoutes'); // Create auth routes
 const session = require('express-session'); // Used for User Authentication
+const path = require('path');
 
 
 
@@ -46,6 +47,14 @@ app.use('/api/foodItems', foodItemsRoutes);
 
 // Routes for Authentication
 app.use('/auth', authRoutes);
+
+// Serve frontend static files
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+// Catch-all route to serve React app for unhandled routes
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+  });
 
 app.use((req, res, next) =>{
     console.log(req.path, req.method)

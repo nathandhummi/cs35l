@@ -16,7 +16,7 @@ router.get(
   }),
   (req, res) => {
     // Successful authentication
-    res.redirect('/profile'); // Redirect to a frontend route
+    res.redirect('/food-items'); // Redirect to the list of food items
   }
 );
 
