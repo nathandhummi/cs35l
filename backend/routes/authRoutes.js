@@ -20,6 +20,20 @@ router.get(
   }
 );
 
+router.get('/user', (req, res) => {
+  if (req.isAuthenticated()) {
+    console.log('req.user:', req.user); // Log to inspect the structure
+    // Return user information stored in the session
+    res.json({
+      name: req.user.name,
+      email: req.user.email,
+      picture: req.user.profilePicture,
+    });
+  } else {
+    res.status(401).json({ error: 'User not authenticated' });
+  }
+});
+
 // Logout route
 router.get('/logout', (req, res) => {
   req.logout((err) => {

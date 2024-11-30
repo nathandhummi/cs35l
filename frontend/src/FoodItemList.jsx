@@ -1,5 +1,6 @@
 // Import necessary libraries and components
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import useFetchFoodItems from './hooks/useFetchFoodItems';
 import fetchAllFoodItems from './api/fetchAllFoodItems'; // Adjust path if necessary
@@ -10,6 +11,7 @@ const FoodItemList = () => {
     // State for storing the filters applied by the user, initialized as an empty object
     const [filters, setFilters] = useState({});
     const foodItems = useFetchFoodItems();
+    const navigate = useNavigate(); // Initialize navigate function
 
     // Function to handle filtering by dining hall; updates the filters state and triggers a refetch
     const handleDiningHallFilter = (diningHall) => {
@@ -18,6 +20,10 @@ const FoodItemList = () => {
         setFilters(newFilters);
         refetch();
     };
+
+    const handleClick = () => {
+        navigate('/user'); // Navigate to the /user page when button is clicked
+      };
 
     // Fetch data with react-query based on the current filters
     const { isError, isLoading, data, error, isSuccess, refetch } = useQuery({
@@ -39,6 +45,15 @@ const FoodItemList = () => {
                 <button onClick={() => handleDiningHallFilter('Epicuria')}>Epicuria</button>
                 <button onClick={() => handleDiningHallFilter('Feast')}>Feast</button>
                 <button onClick={() => handleDiningHallFilter(null)}>All Dining Halls</button>
+            </div>
+            <div className="userDiv">
+                <button className="userButton" onClick={handleClick}>
+                <img 
+                    src="https://as2.ftcdn.net/v2/jpg/03/16/12/51/1000_F_316125188_FYs3RbaUQ6gGwom3sfqSvgt2QGw3fKol.jpg" 
+                    alt="User Icon" 
+                    className="userImage"
+                />
+                </button>
             </div>
             {/* Conditionally render the food items list if data is successfully fetched and not empty */}
             {isSuccess && data?.length > 0 ? (

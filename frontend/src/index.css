@@ -100,3 +100,34 @@ div.error {
 input.error {
   border: 1px solid var(--error);
 }
+
+.userDiv {
+  position: fixed; /* Keeps the div fixed in place, even when scrolling */
+  top: 20px; /* Distance from the top of the page */
+  right: 20px; /* Distance from the right edge of the page */
+  z-index: 1000; /* Ensures it stays above other elements */
+}
+
+.userButton {
+  width: 100px; /* Circular button */
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.userButton:hover {
+  background-color: #ddd; /* Hover effect */
+}
+
+.userImage {
+  width: 100%; /* Scale image to fill the button */
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the button area without distortion */
+  border-radius: 50%; /* Ensures the image matches the button's circular shape */
+}
