@@ -7,9 +7,9 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-      <h1>Welcome to UCLA Dining</h1>
-      <button onClick={handleLogin}>Sign in with Google</button>
+    <div className="login-container">
+      <h1 className="login-title">Welcome to UCLA Dining</h1>
+      <button className="login-button" onClick={handleLogin}>Sign in with Google</button>
     </div>
   );
 };

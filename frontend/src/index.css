@@ -131,3 +131,48 @@ input.error {
   object-fit: cover; /* Ensures the image covers the button area without distortion */
   border-radius: 50%; /* Ensures the image matches the button's circular shape */
 }
+
+/* Container for centering content */
+.login-container {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  height: 100vh; /* Full viewport height */
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef); /* Subtle gradient background */
+  text-align: center;
+}
+
+/* Title styling */
+.login-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #343a40;
+  margin-bottom: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Button styling */
+.login-button {
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Button hover effect */
+.login-button:hover {
+  background-color: #0056b3; /* Darker shade of blue */
+  transform: scale(1.05); /* Slightly enlarge the button */
+}
+
+/* Button active effect */
+.login-button:active {
+  transform: scale(0.95); /* Shrink slightly when clicked */
+  background-color: #003d82; /* Even darker shade of blue */
+}
