@@ -16,7 +16,6 @@ function App() {
         <QueryClientProvider client={queryClient}>
             <Router>
                 <div className="App">
-                    <h1>UCLA DINING</h1>
                     {/* Define routes */}
                     <Routes>
                         {/* Default route redirects to login */}

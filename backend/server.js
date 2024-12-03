@@ -42,6 +42,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/api/reviews',reviewRoutes)
 
 app.use('/api/foodItems', foodItemsRoutes);
 
@@ -61,7 +62,7 @@ app.use((req, res, next) =>{
     next()
 })
 //uses all the routes from routes folder as our route.
-app.use('/api/reviews',reviewRoutes)
+
 //connect to database, our URI/password needs to be correct
 mongoose.connect(process.env.MONGO_URI)
     .then(()=>{

@@ -5,6 +5,7 @@ const fetchAllFoodItems = async (filters) => {
         if (!response.ok) {
             throw new Error('Failed to fetch food items');
         }
+       
         const data = await response.json();
         console.log("Fetched data: ", data); // Check fetched data
         

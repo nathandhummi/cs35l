@@ -20,6 +20,7 @@ const FoodItemList = () => {
         setFilters(newFilters);
         refetch();
     };
+    
 
     const handleClick = () => {
         navigate('/user'); // Navigate to the /user page when button is clicked
@@ -28,8 +29,9 @@ const FoodItemList = () => {
     // Fetch data with react-query based on the current filters
     const { isError, isLoading, data, error, isSuccess, refetch } = useQuery({
         queryKey: ['food-items', filters], // Unique key for caching, includes filters for dependency tracking
-        queryFn: () => fetchAllFoodItems(foodItems, filters), // The function to fetch data based on current filters
+        queryFn: () => fetchAllFoodItems(filters), // The function to fetch data based on current filters
     });
+    console.log("Updated filters2: ", filters);
 
     // Conditional rendering to handle loading and error states
     if (isLoading) return <div>Loading...</div>; // Shows a loading message while data is being fetched
@@ -52,7 +54,7 @@ const FoodItemList = () => {
                     src="https://as2.ftcdn.net/v2/jpg/03/16/12/51/1000_F_316125188_FYs3RbaUQ6gGwom3sfqSvgt2QGw3fKol.jpg" 
                     alt="User Icon" 
                     className="userImage"
-                />
+                /> 
                 </button>
             </div>
             {/* Conditionally render the food items list if data is successfully fetched and not empty */}
@@ -61,7 +63,7 @@ const FoodItemList = () => {
                     {data.map((foodItem) => (
                         <li key={foodItem._id}> {/* Each food item is uniquely identified by its ID */}
                             <h2>{foodItem.name}</h2> {/* Display the name of the food item */}
-                            <p>Dining Halls: {foodItem.diningHall}</p> {/* Display the dining hall associated with the item */}
+                            <p>Dining Hall: {foodItem.diningHall}</p> {/* Display the dining hall associated with the item */}
                             {/* Conditionally render the image if available, with a fixed width of 100px */}
                             {foodItem.image && <img src={foodItem.image} alt={foodItem.name} style={{ width: '100px' }} />}
                             <Link to={`/reviews/${foodItem._id}`}>View Reviews</Link>
