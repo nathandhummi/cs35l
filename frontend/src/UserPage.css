@@ -1,0 +1,61 @@
+/* Center everything on the page */
+.user-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+  }
+  
+  /* Header section */
+  .user-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  /* Profile image styles */
+  .user-profile-image {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+  }
+  
+  /* Reviews section */
+  .user-reviews {
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Loading message */
+  .user-page-loading {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 18px;
+    color: #555;
+  }
+  
+  /* Styling for headers and text */
+  .user-header h1 {
+    font-size: 2rem;
+    color: #0056b3; /* UCLA-themed blue */
+  }
+  
+  .user-reviews h2 {
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .user-reviews p {
+    font-size: 1rem;
+    color: #666;
+  }
+  

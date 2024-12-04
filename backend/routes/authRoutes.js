@@ -16,7 +16,7 @@ router.get(
   }),
   (req, res) => {
     // Successful authentication
-    res.redirect('/food-items'); // Redirect to the list of food items
+    res.redirect('http://localhost:3000/food-items#'); // Redirect to the list of food items
   }
 );
 

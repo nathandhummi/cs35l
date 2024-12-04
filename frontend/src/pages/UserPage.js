@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import '../UserPage.css'; // Import CSS file
 
 const UserPage = () => {
-  const [user, setUser] = useState(null); // State to store user info
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Fetch user info from the backend
     const fetchUser = async () => {
       try {
-        const response = await fetch('http://localhost:4000/auth/user', {
-            credentials: 'include', // Include cookies for session management
-          });
-          if (!response.ok) {
-            throw new Error('Failed to fetch user');
-          }
-          const data = await response.json();
-          setUser(data);
+        const response = await fetch('/auth/user', { credentials: 'include' });
+
+        console.log("Response: " + response);
+        if (!response.ok) {
+          throw new Error('Failed to fetch user');
+        }
+        const data = await response.json();
+        setUser(data);
       } catch (error) {
         console.error('Error fetching user info:', error);
       }
@@ -24,19 +24,20 @@ const UserPage = () => {
   }, []);
 
   if (!user) {
-    return <p>Loading...</p>; // Show a loading message until user data is available
+    return <div className="user-page-loading">Loading...</div>;
   }
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '20px' }}>
-      <h1>Welcome, {user.name}!</h1>
-      <img
-        src={user.picture}
-        alt="User Profile"
-        style={{ borderRadius: '50%', width: '150px', height: '150px' }}
-      />
-      {/* Placeholder for future reviews */}
-      <div style={{ marginTop: '20px' }}>
+    <div className="user-page">
+      <div className="user-header">
+        <h1>Welcome, {user.name}!</h1>
+        <img
+          src={user.picture}
+          alt="User Profile"
+          className="user-profile-image"
+        />
+      </div>
+      <div className="user-reviews">
         <h2>Your Reviews</h2>
         <p>No reviews yet!</p>
       </div>

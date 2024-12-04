@@ -17,9 +17,9 @@ const mongoose = require('mongoose')
 //use cors to connect frontend with backend
 const cors = require('cors');
 const corsOptions = {
-    origin: "*",
-    credentials: true,
-    optionsSuccessStatus: 200
+    origin: 'http://localhost:3000', // Restrict to your frontend's URL
+    credentials: true,              // Allow cookies and credentials
+    optionsSuccessStatus: 200       // For older browsers
 }
 //express app
 const app = express()
