@@ -1,20 +1,20 @@
 import { useState } from 'react'
 import { useReviewsContext } from '../hooks/useReviewsContext'
 
-const ReviewForm = ({foodItemId}) => {
+const ReviewForm = ({foodItemId, userId}) => {
   const { dispatch } = useReviewsContext()
-
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   // const [stars, setStars] = useState('')
   const [error, setError] = useState(null)
   const [emptyFields, setEmptyFields] = useState([])
 
+
   const handleSubmit = async (e) => {
     // default is reloading page so prevent this from happening
     e.preventDefault()
 
-    const review = {title, description, foodItemId}
+    const review = {title, description, foodItemId, userId}
     
     const response = await fetch('/api/reviews/:id', {
       method: 'POST',
@@ -44,7 +44,7 @@ const ReviewForm = ({foodItemId}) => {
     <form className="create" onSubmit={handleSubmit}> 
       <h3>Add a New Review</h3>
 
-      <label>Review Header:</label>
+      <label>Review Title:</label>
       <input 
         type="text" 
         onChange={(e) => setTitle(e.target.value)} 

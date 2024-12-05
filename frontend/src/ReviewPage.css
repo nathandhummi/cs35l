@@ -1,0 +1,141 @@
+/* General styling for the review page */
+.review-page {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    color: #333;
+  }
+  
+  .review-page h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #ffffff; /* UCLA-themed blue */
+  }
+  
+  button {
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  button:hover {
+    background-color: #003f8a;
+  }
+  
+  /* Review card styling */
+  .review-details {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: left;
+    position: relative;
+  }
+  
+  .review-details h4 {
+    font-size: 1.25rem;
+    margin: 0 0 10px;
+  }
+  
+  .review-details p {
+    font-size: 0.95rem;
+    color: #555;
+  }
+  
+  .review-details span.material-symbols-outlined {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: #d9534f; /* Delete icon in red */
+  }
+  
+  .review-details span.material-symbols-outlined:hover {
+    color: #c9302c;
+  }
+  
+  /* Add review form styling */
+  form.create {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  form.create h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #0056b3;
+  }
+  
+  form.create label {
+    display: block;
+    text-align: left;
+    margin: 10px 0 5px;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  form.create input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  form.create input:focus {
+    border-color: #0056b3;
+    outline: none;
+  }
+  
+  form.create button {
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  form.create button:hover {
+    background-color: #003f8a;
+  }
+  
+  form.create .error {
+    color: #d9534f;
+    font-size: 0.9rem;
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }  
+
+  /* Food banner section */
+.food-banner {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: #333; /* Fallback color */
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .food-title {
+    font-size: 2.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+    font-weight: bold;
+    text-align: center;
+  }
+  
