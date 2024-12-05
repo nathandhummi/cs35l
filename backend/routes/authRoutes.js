@@ -25,6 +25,7 @@ router.get('/user', (req, res) => {
     console.log('req.user:', req.user); // Log to inspect the structure
     // Return user information stored in the session
     res.json({
+      id: req.user._id,
       name: req.user.name,
       email: req.user.email,
       picture: req.user.profilePicture,
