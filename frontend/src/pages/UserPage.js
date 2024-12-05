@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useReviewsContext } from '../hooks/useReviewsContext';
 import ReviewDetails from '../components/UserReviewDetails';
+import { useNavigate } from 'react-router-dom';
 import '../UserPage.css';
 
 const UserPage = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const { reviews, dispatch } = useReviewsContext();
 
