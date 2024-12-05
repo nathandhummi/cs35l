@@ -1,6 +1,7 @@
 import { useReviewsContext } from "../hooks/useReviewsContext";
 import { useEffect, useState } from "react"; // Import useState and useEffect for fetching the current user
 import formatDistanceToNow from "date-fns/formatDistanceToNow"; // For formatting dates
+import '../ReviewDetails.css';
 
 const ReviewDetails = ({ review }) => {
     const { dispatch } = useReviewsContext();
@@ -35,19 +36,40 @@ const ReviewDetails = ({ review }) => {
         }
     };
 
+    // Handle cases where review.user is null
+    const userProfilePicture = review.user?.profilePicture || "/default-gray-square.png"; // Default gray square image
+    const userName = review.user?.name || "Anonymous";
+
     return (
         <div className="review-details">
-            <h4>{review.title}</h4>
-            <p>
-                <strong>Review: </strong>
-                {review.description}
-            </p>
-            <p>{formatDistanceToNow(new Date(review.createdAt), { addSuffix: true })}</p>
-            {review.user === currentUserId && ( // Only show the delete button if the review was posted by the current user
-                <span className="material-symbols-outlined" onClick={handleClick}>
-                    delete
-                </span>
-            )}
+            {/* Top section with profile picture, name, and delete button */}
+            <div className="review-header">
+                <div className="user-info">
+                    <img
+                        src={userProfilePicture}
+                        alt={`${userName}'s profile`}
+                        className="profile-picture"
+                    />
+                    <span className="user-name">{userName}</span>
+                </div>
+                {review.user && review.user._id === currentUserId && (
+                    <span className="delete-button material-symbols-outlined" onClick={handleClick}>
+                        delete
+                    </span>
+                )}
+            </div>
+
+            {/* Review content */}
+            <div className="review-content">
+                <h4 className="review-title">{review.title}</h4>
+                <p>
+                    <strong>Review: </strong>
+                    {review.description}
+                </p>
+                <p className="review-time">
+                    {formatDistanceToNow(new Date(review.createdAt), { addSuffix: true })}
+                </p>
+            </div>
         </div>
     );
 };

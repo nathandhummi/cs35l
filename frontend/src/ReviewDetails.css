@@ -1,0 +1,113 @@
+/* Review Card Container */
+.review-details {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.review-details:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+}
+
+/* Review Header */
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 12px;
+}
+
+/* User Info */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Profile Picture */
+.profile-picture {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #007bff;
+    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.3);
+}
+
+/* User Name */
+.user-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #212529;
+    letter-spacing: 0.5px;
+}
+
+/* Delete Button */
+.delete-button {
+    cursor: pointer;
+    color: #ff6b6b;
+    font-size: 1.5rem;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.delete-button:hover {
+    color: #ff3b3b;
+    transform: scale(1.1);
+}
+
+/* Review Content */
+.review-content {
+    padding-top: 12px;
+    margin-left: 64px; /* Align under the profile picture */
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Review Title */
+.review-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 4px;
+}
+
+/* Review Description */
+.review-content p {
+    font-size: 1rem;
+    color: #495057;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Review Time */
+.review-time {
+    font-size: 0.9rem;
+    color: #adb5bd;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .review-details {
+        padding: 16px;
+    }
+
+    .profile-picture {
+        width: 40px;
+        height: 40px;
+    }
+
+    .review-content {
+        margin-left: 50px;
+    }
+}
