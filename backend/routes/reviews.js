@@ -5,8 +5,10 @@ const {
     getReviews, 
     deleteReview, 
     updateReview,
-    getReviewsByFoodItem
+    getReviewsByFoodItem,
+    getReviewsByUser
 } = require('../controllers/reviewController')
+const requireAuth = require('../middleware/requireAuth'); // Middleware to ensure the user is logged in
 
 
 const router = express.Router()
@@ -18,6 +20,9 @@ router.get('/', getReviews)
 //router.get('/:id', getReview)
 router.get('/:foodItemId', getReviewsByFoodItem);
 
+router.get('/user/:userId', getReviewsByUser)
+
+router.use(requireAuth)
 //POST a new review
 router.post('/:id', createReview)
 

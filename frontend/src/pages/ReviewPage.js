@@ -12,7 +12,8 @@ const ReviewPage = () => {
     const { id: foodItemId } = useParams(); // Extract foodItemId from the URL
     const [foodItemName, setFoodItemName] = useState(''); // State to store the food item name
     const navigate = useNavigate();
-
+    const [user, setUser] = useState(null);
+    
     useEffect(() => {
         const fetchFoodItem = async () => {
             try {
@@ -34,6 +35,27 @@ const ReviewPage = () => {
             fetchFoodItem(); // Fetch food item details when foodItemId is available
         }
     }, [foodItemId]);
+
+    //fetch the user in the session.
+    useEffect(() => { 
+        const fetchUser = async () => {
+          try {
+            const response = await fetch('/auth/user', { credentials: 'include' });
+    
+            console.log("Response: " + response);
+            if (!response.ok) {
+              throw new Error('Failed to fetch user');
+            }
+            const data = await response.json();
+
+            setUser(data);
+          } catch (error) {
+            console.error('Error fetching user info:', error);
+          }
+        };
+    
+        fetchUser();
+      }, []);
 
     useEffect(() => {
         const fetchReviews = async () => {
@@ -70,7 +92,10 @@ const ReviewPage = () => {
                     <p>No reviews available for this food item.</p>
                 )}
             </div>
-            <ReviewForm foodItemId={foodItemId} /> {/* Pass the foodItemId to the ReviewForm */}
+            <ReviewForm 
+                foodItemId={foodItemId} 
+                userId={user ? user.id : null} 
+            /> {/* Pass foodItemId and userId to ReviewForm */}
         </div>
     );
 };
