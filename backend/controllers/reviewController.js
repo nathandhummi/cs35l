@@ -150,11 +150,55 @@ const updateReview = async (req, res) => {
     res.status(200).json(review)
 }
 
+const toggleLikeReview = async (req, res) => {
+    
+    const { id } = req.params;
+    
+    console.log("Review ID in controller from req.params.id:", {id});
+
+    console.log(`req.params:`, req.params);
+    console.log(`req.user:`, req.user);
+    // Validate the review ID
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ error: 'Invalid review ID' });
+    }
+
+    try {
+        // Find the review by ID
+        const review = await Review.findById(id);
+
+        if (!review) {
+            return res.status(404).json({ error: 'Review not found' });
+        }
+
+        const userId = req.user._id; // Logged-in user's ID
+
+        // Check if the user already liked the review
+        const hasLiked = review.likedBy.includes(userId);
+
+        if (hasLiked) {
+            // If already liked, remove the user from the likedBy array (unlike)
+            review.likedBy = review.likedBy.filter((id) => id.toString() !== userId.toString());
+        } else {
+            // If not liked, add the user to the likedBy array
+            review.likedBy.push(userId);
+        }
+
+        // Save the updated review
+        await review.save();
+
+        res.status(200).json({ message: 'Like toggled successfully', review });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to toggle like', details: error.message });
+    }
+};
+
 module.exports = {
     createReview,
     getReviews,
     deleteReview,
     updateReview,
     getReviewsByFoodItem,
-    getReviewsByUser
+    getReviewsByUser,
+    toggleLikeReview
 }
