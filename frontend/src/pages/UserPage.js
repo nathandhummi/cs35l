@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import '../UserPage.css';
 
 const UserPage = () => {
-  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const { reviews, dispatch } = useReviewsContext();
   const navigate = useNavigate();
