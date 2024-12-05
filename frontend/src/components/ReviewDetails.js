@@ -19,6 +19,7 @@ const ReviewDetails = ({ review }) => {
     }
     return(
         <div className = "review-details">
+            <p><strong>Reviewed by:</strong> {review.user?.name || 'Anonymous'}</p>
             <h4>{review.title}</h4>
             <p><strong>Review: </strong>{review.description}</p>
             <p>{formatDistanceToNow(new Date(review.createdAt), { addSuffix: true })}</p>

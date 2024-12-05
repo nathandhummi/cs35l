@@ -25,8 +25,10 @@ const getReviewsByFoodItem = async (req, res) => {
 
 //getting all the reviews
 const getReviews = async (req, res) => {
-    const reviews = await Review.find({}).sort({createdAt: -1})
-
+    const reviews = await Review.find({})
+        .sort({createdAt: -1})
+        .populate('user', 'name') // Populate user information (e.g., name)
+        .populate('foodItem', 'name'); // Populate food item information (e.g., name)
     res.status(200).json(reviews)
 }
 
@@ -71,10 +73,24 @@ const createReview = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(foodItemId)) {
         return res.status(400).json({ error: 'Invalid food item ID' });
     }
+
     const foodItemObjectId = new mongoose.Types.ObjectId(foodItemId); 
+
+    // Get the authenticated user's ID from the request
+    const userId = req.user?._id; // Ensure `req.user` is set by authentication middleware
+
+    if (!userId) {
+        return res.status(401).json({ error: 'User not authenticated' });
+    }
+
     try {
         // Create the review with the foodItemId reference
-        const review = await Review.create({ title, description, foodItem: foodItemObjectId });
+        const review = await Review.create({ 
+            title, 
+            description, 
+            foodItem: foodItemObjectId ,
+            user: req.user._id
+        });
         res.status(200).json(review);
     } catch (error) {
         res.status(400).json({ error: error.message });

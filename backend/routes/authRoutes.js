@@ -2,6 +2,8 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 
+
+
 // Start the Google authentication process
 router.get(
   '/google',
@@ -43,5 +45,6 @@ router.get('/logout', (req, res) => {
     res.redirect('/');
   });
 });
+
 
 module.exports = router;
