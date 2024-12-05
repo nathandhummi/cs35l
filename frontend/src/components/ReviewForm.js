@@ -44,7 +44,7 @@ const ReviewForm = ({foodItemId}) => {
     <form className="create" onSubmit={handleSubmit}> 
       <h3>Add a New Review</h3>
 
-      <label>Review Header:</label>
+      <label>Review Title:</label>
       <input 
         type="text" 
         onChange={(e) => setTitle(e.target.value)} 

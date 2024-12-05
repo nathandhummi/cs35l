@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../UserPage.css'; // Import CSS file
 
 const UserPage = () => {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -29,6 +31,7 @@ const UserPage = () => {
 
   return (
     <div className="user-page">
+      <button onClick={() => navigate(-1)}>Go Back</button> {/* Go back to the previous page */}
       <div className="user-header">
         <h1>Welcome, {user.name}!</h1>
         <img

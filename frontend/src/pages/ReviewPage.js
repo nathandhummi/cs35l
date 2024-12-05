@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; // Import useParams to get foodItemId
 import { useReviewsContext } from '../hooks/useReviewsContext';
+import '../ReviewPage.css'
 
 
 // components
@@ -10,7 +11,7 @@ import ReviewForm from '../components/ReviewForm';
 const ReviewPage = () => {
     const { reviews, dispatch } = useReviewsContext();
     const { id: foodItemId } = useParams(); // Extract foodItemId from the URL
-    const [foodItemName, setFoodItemName] = useState(''); // State to store the food item name
+    const [foodItem, setFoodItem] = useState({}); // State to store food item details
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,7 +22,7 @@ const ReviewPage = () => {
 
                 if (response.ok) {
                     console.log("Fetched food item:", json); // Debugging log
-                    setFoodItemName(json.name); // Update the food item name
+                    setFoodItem(json); // Update food item details (name, image, etc.)
                 } else {
                     console.error("Failed to fetch food item:", json);
                 }
@@ -60,8 +61,21 @@ const ReviewPage = () => {
     return (
         <div className="review-page">
             <button onClick={() => navigate(-1)}>Go Back</button> {/* Go back to the previous page */}
-            <h1>Reviews for {foodItemName || 'Food Item'}</h1> {/* Display the food item name */}
+            {/* Food item banner */}
+            {foodItem.image && (
+                <div
+                    className="food-banner"
+                    style={{
+                        backgroundImage: `url(${foodItem.image})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                    }}
+                >
+                    <h1 className="food-title">{foodItem.name || 'Food Item'}</h1>
+                </div>
+            )}
             <div className="reviews">
+                <h2>Reviews for {foodItem.name || 'Food Item'}</h2>
                 {reviews && reviews.length > 0 ? (
                     reviews.map((review) => (
                         <ReviewDetails review={review} key={review._id} />
