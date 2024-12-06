@@ -1,6 +1,7 @@
 import { useReviewsContext } from "../hooks/useReviewsContext";
 import { useEffect, useState } from "react";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import '../ReviewDetails.css';
 
 const ReviewDetails = ({ review }) => {
     const { dispatch } = useReviewsContext();
@@ -79,6 +80,10 @@ const ReviewDetails = ({ review }) => {
             dispatch({ type: "DELETE_REVIEW", payload: json });
         }
     };
+
+    // Handle cases where review.user is null
+    const userProfilePicture = review.user?.profilePicture || "/default-gray-square.png"; // Default gray square image
+    const userName = review.user?.name || "Anonymous";
 
     return (
         <div className="review-details">

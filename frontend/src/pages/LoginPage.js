@@ -13,7 +13,7 @@ const LoginPage = () => {
     // Generate falling emojis at intervals
     const interval = setInterval(() => {
       const emoji = document.createElement('div');
-      emoji.textContent = ['🥟', '🍕', '🍔', '🍩', '🥗', '🍣'][Math.floor(Math.random() * 6)];
+      emoji.textContent = ['🥟', '🍕', '🌯', '🍔', '🍩', '🥗', '🍣'][Math.floor(Math.random() * 6)];
       emoji.className = 'falling-emoji';
       emoji.style.left = `${Math.random() * 100}vw`; // Random horizontal position
       emojiContainer.appendChild(emoji);
