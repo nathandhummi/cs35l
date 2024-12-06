@@ -60,16 +60,17 @@ const UserPage = () => {
         <h1>Welcome, {user.name}!</h1>
         <img src={user.picture} alt="User Profile" className="user-profile-image" />
       </div>
-      <div className="reviews">
-        <h1>Your Reviews</h1>
-        {reviews && reviews.length > 0 ? (
-          reviews.map((review) => (
-            <ReviewDetails review={review} key={review._id} />
-          ))
-        ) : (
-          <p>No reviews from you.</p>
-        )}
-      </div>
+      <div className="user-reviews">
+  <h1>Your Reviews</h1>
+  {reviews && reviews.length > 0 ? (
+    reviews.map((review) => (
+      <ReviewDetails review={review} key={review._id} />
+    ))
+  ) : (
+    <p>No reviews from you.</p>
+  )}
+</div>
+
     </div>
   );
 };
