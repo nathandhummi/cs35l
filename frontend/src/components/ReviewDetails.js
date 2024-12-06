@@ -91,13 +91,14 @@ const ReviewDetails = ({ review }) => {
                     <span className="user-name">{userName}</span>
                 </div>
             </div>
+            <span className="star-rate">{'★'.repeat(review.stars)}</span>
             <h4>{review.title}</h4>
             <p>
                 <strong>Review: </strong>
                 {review.description}
             </p>
             <p>
-            <span className="star-rating">{'★'.repeat(review.stars)}</span>
+            
                 
             </p>
             <p>{formatDistanceToNow(new Date(review.createdAt), { addSuffix: true })}</p>
