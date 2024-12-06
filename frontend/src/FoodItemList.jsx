@@ -29,11 +29,16 @@ const FoodItemList = () => {
     if (isLoading) return <div>Loading...</div>;
     if (isError) return <div>Error: {error.message}</div>;
 
+    // Function to determine if the button is active
+    const getButtonClass = (diningHall) => {
+        return filters.diningHall === diningHall ? 'active' : '';
+    };
+
     return (
         <div>
             {/* Header Section */}
             <header>
-                <h1>UCLA Dining</h1>
+                <h1>Bite Club</h1>
                 <div className="userDiv">
                     <button className="userButton" onClick={handleClick}>
                         <img
@@ -47,11 +52,11 @@ const FoodItemList = () => {
 
             {/* Filter Buttons */}
             <div className="filter-buttons">
-                <button onClick={() => handleDiningHallFilter('De Neve')}>De Neve</button>
-                <button onClick={() => handleDiningHallFilter('B-Plate')}>B-Plate</button>
-                <button onClick={() => handleDiningHallFilter('Epicuria')}>Epicuria</button>
-                <button onClick={() => handleDiningHallFilter('Feast')}>Feast</button>
-                <button onClick={() => handleDiningHallFilter(null)}>All Dining Halls</button>
+                <button className={getButtonClass('De Neve')} onClick={() => handleDiningHallFilter('De Neve')}>De Neve</button>
+                <button className={getButtonClass('B-Plate')} onClick={() => handleDiningHallFilter('B-Plate')}>B-Plate</button>
+                <button className={getButtonClass('Epicuria')} onClick={() => handleDiningHallFilter('Epicuria')}>Epicuria</button>
+                <button className={getButtonClass('Feast')} onClick={() => handleDiningHallFilter('Feast')}>Feast</button>
+                <button className={getButtonClass(null)} onClick={() => handleDiningHallFilter(null)}>All Dining Halls</button>
             </div>
 
             {/* Food Items */}
@@ -66,7 +71,7 @@ const FoodItemList = () => {
                             <div className="food-card-content">
                                 <h2 className="food-card-title">{foodItem.name}</h2>
                                 <Link to={`/reviews/${foodItem._id}`} className="food-card-link">
-                                    View Reviews
+                                    See Reviews
                                 </Link>
                             </div>
                         </div>

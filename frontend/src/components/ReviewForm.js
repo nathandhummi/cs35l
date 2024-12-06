@@ -43,7 +43,7 @@ const ReviewForm = ({foodItemId, userId}) => {
 
   return (
     <form className="create" onSubmit={handleSubmit}> 
-      <h3>Add a New Review</h3>
+      <h3>Leave a Review</h3>
 
       <label>Review Title:</label>
       <input 
@@ -61,7 +61,7 @@ const ReviewForm = ({foodItemId, userId}) => {
         className={emptyFields.includes('description') ? 'error' : ''}
       />
 
-      <button>Add Review</button>
+      <button>Submit</button>
       {error && <div className="error">{error}</div>}
     </form>
   )

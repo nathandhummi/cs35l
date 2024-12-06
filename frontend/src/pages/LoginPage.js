@@ -13,7 +13,7 @@ const LoginPage = () => {
     // Generate falling emojis at intervals
     const interval = setInterval(() => {
       const emoji = document.createElement('div');
-      emoji.textContent = ['🥟', '🍕', '🌯', '🍔', '🍩', '🥗', '🍣'][Math.floor(Math.random() * 6)];
+      emoji.textContent = ['🥟', '🍕', '🌯', '🍔', '🍝', '🥗', '🍣', '🥘'][Math.floor(Math.random() * 8)];
       emoji.className = 'falling-emoji';
       emoji.style.left = `${Math.random() * 100}vw`; // Random horizontal position
       emojiContainer.appendChild(emoji);
@@ -22,7 +22,7 @@ const LoginPage = () => {
       setTimeout(() => {
         emojiContainer.removeChild(emoji);
       }, 5000); // Adjust based on animation duration
-    }, 300); // Adjust frequency
+    }, 200); // Adjust frequency
 
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
@@ -30,7 +30,7 @@ const LoginPage = () => {
   return (
     <div className="login-container">
       <div id="emoji-container"></div>
-      <h1 className="login-title">Welcome to UCLA Dining</h1>
+      <h1 className="login-title">Welcome to Bite Club</h1>
       <button className="login-button" onClick={handleLogin}>Sign in with Google</button>
     </div>
   );
