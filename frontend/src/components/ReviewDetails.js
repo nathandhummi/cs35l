@@ -96,6 +96,10 @@ const ReviewDetails = ({ review }) => {
                 <strong>Review: </strong>
                 {review.description}
             </p>
+            <p>
+            <span className="star-rating">{'★'.repeat(review.stars)}</span>
+                
+            </p>
             <p>{formatDistanceToNow(new Date(review.createdAt), { addSuffix: true })}</p>
             <button onClick={toggleLike} className="like-button">
                 <FontAwesomeIcon icon={faThumbsUp} />
@@ -108,6 +112,7 @@ const ReviewDetails = ({ review }) => {
             )}
         </div>
     );
+    
 };
 
 export default ReviewDetails;

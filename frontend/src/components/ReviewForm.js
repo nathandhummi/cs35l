@@ -1,48 +1,47 @@
-import { useState } from 'react'
-import { useReviewsContext } from '../hooks/useReviewsContext'
+import { useState } from 'react';
+import { useReviewsContext } from '../hooks/useReviewsContext';
+import '../ReviewForm.css';
 
-const ReviewForm = ({foodItemId, userId}) => {
-  const { dispatch } = useReviewsContext()
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  // const [stars, setStars] = useState('')
-  const [error, setError] = useState(null)
-  const [emptyFields, setEmptyFields] = useState([])
-
+const ReviewForm = ({ foodItemId, userId }) => {
+  const { dispatch } = useReviewsContext();
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [stars, setStars] = useState(0);
+  const [error, setError] = useState(null);
+  const [emptyFields, setEmptyFields] = useState([]);
 
   const handleSubmit = async (e) => {
-    // default is reloading page so prevent this from happening
-    e.preventDefault()
+    e.preventDefault();
 
-    const review = {title, description, foodItemId, userId}
-    
+    const review = { title, description, foodItemId, userId, stars };
+
     const response = await fetch('/api/reviews/:id', {
       method: 'POST',
       body: JSON.stringify(review),
       headers: {
         'Content-Type': 'application/json'
       }
-    })
-    const json = await response.json()
+    });
+
+    const json = await response.json();
 
     if (!response.ok) {
-      setError(json.error)
-      setEmptyFields(json.emptyFields)
-    }
-    if (response.ok) {
-      setError(null)
-      setEmptyFields([])
-      setTitle('')
-      setDescription('')
-      console.log('new review added:', json)
-      dispatch({type: 'CREATE_REVIEW', payload: json})
+      setError(json.error);
+      setEmptyFields(json.emptyFields);
+    } else {
+      setError(null);
+      setEmptyFields([]);
+      setTitle('');
+      setDescription('');
+      setStars(0);
+      console.log('new review added:', json);
+      dispatch({ type: 'CREATE_REVIEW', payload: json });
       window.location.reload();
     }
-
-  }
+  };
 
   return (
-    <form className="create" onSubmit={handleSubmit}> 
+    <form className="create" onSubmit={handleSubmit}>
       <h3>Leave a Review</h3>
 
       <label>Review Title:</label>
@@ -61,10 +60,28 @@ const ReviewForm = ({foodItemId, userId}) => {
         className={emptyFields.includes('description') ? 'error' : ''}
       />
 
+      <label>Star Rating:</label>
+      <div className="star-rating">
+        {[...Array(5)].map((_, index) => {
+          const ratingValue = index + 1;
+
+          return (
+            <span
+              key={ratingValue}
+              className={`star ${ratingValue <= stars ? 'filled' : ''}`}
+              onClick={() => setStars(ratingValue)}
+            >
+              ★
+            </span>
+          );
+        })}
+      </div>
+      {emptyFields.includes('stars') && <p className="error">Star rating is required</p>}
+
       <button>Submit</button>
       {error && <div className="error">{error}</div>}
     </form>
-  )
-}
+  );
+};
 
-export default ReviewForm
+export default ReviewForm;
