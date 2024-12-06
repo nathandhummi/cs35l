@@ -87,6 +87,16 @@ const ReviewDetails = ({ review }) => {
 
     return (
         <div className="review-details">
+            <div className="review-header">
+                <div className="user-info">
+                    <img
+                        src={userProfilePicture}
+                        alt={`${userName}'s profile`}
+                        className="profile-picture"
+                    />
+                    <span className="user-name">{userName}</span>
+                </div>
+            </div>
             <h4>{review.title}</h4>
             <p>
                 <strong>Review: </strong>
@@ -102,6 +112,8 @@ const ReviewDetails = ({ review }) => {
                 </span>
             )}
         </div>
+
+        
     );
 };
 
