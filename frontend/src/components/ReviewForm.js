@@ -36,6 +36,7 @@ const ReviewForm = ({foodItemId, userId}) => {
       setDescription('')
       console.log('new review added:', json)
       dispatch({type: 'CREATE_REVIEW', payload: json})
+      window.location.reload();
     }
 
   }

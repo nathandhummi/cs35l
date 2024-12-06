@@ -58,8 +58,8 @@ const ReviewDetails = ({ review }) => {
             console.log("data:", data);
             setHasLiked(data.review.likedBy.includes(currentUserId));
             console.log("Log after setHasLiked");
-
             setLikeCount(data.review.likedBy.length);
+            window.location.reload();
         } catch (error) {
             console.error("Error toggling like:", error);
 
