@@ -111,3 +111,27 @@
         margin-left: 50px;
     }
 }
+/* Like Button */
+.like-button {
+    display: flex;
+    align-items: center;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    position: absolute; /* Position the button */
+    bottom: 20px; /* Spacing from the bottom */
+    right: 20px; /* Spacing from the right */
+}
+
+.like-button .like-count {
+    margin-left: 8px;
+    font-weight: bold;
+}
+
+.like-button:hover {
+    background-color: #145ca8;
+}

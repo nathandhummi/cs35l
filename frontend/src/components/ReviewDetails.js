@@ -1,13 +1,15 @@
 import { useReviewsContext } from "../hooks/useReviewsContext";
 import { useEffect, useState } from "react";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import '../ReviewDetails.css';
 
 const ReviewDetails = ({ review }) => {
     const { dispatch } = useReviewsContext();
     const [currentUserId, setCurrentUserId] = useState(null);
-    const [likeCount, setLikeCount] = useState(review.likedBy?.length || 0); // Ensure likedBy is defined
-    const [hasLiked, setHasLiked] = useState(false); // Default to false until checked
+    const [likeCount, setLikeCount] = useState(review.likedBy?.length || 0);
+    const [hasLiked, setHasLiked] = useState(false);
 
     // Fetch the current user and determine like status
     useEffect(() => {
@@ -19,7 +21,7 @@ const ReviewDetails = ({ review }) => {
                 const data = await response.json();
                 setCurrentUserId(data.id);
 
-                // Determine if the user has already liked the review
+                // Check if the user has already liked the review
                 if (review.likedBy) {
                     setHasLiked(review.likedBy.includes(data.id));
                 }
@@ -29,13 +31,13 @@ const ReviewDetails = ({ review }) => {
         };
 
         fetchUser();
-    }, [review.likedBy]); // Re-run when likedBy changes
+    }, [review.likedBy]);
 
     // Toggle like functionality
     const toggleLike = async () => {
         try {
             // Optimistically update UI
-            const isLiked = hasLiked || (review.likedBy && review.likedBy.includes(currentUserId));
+            const isLiked = hasLiked || (review.likedBy?.includes(currentUserId));
             setHasLiked(!isLiked);
             setLikeCount((prev) => (isLiked ? prev - 1 : prev + 1));
 
@@ -47,19 +49,11 @@ const ReviewDetails = ({ review }) => {
 
             if (!response.ok) throw new Error("Failed to toggle like");
 
-            
-            console.log("Log before requestin json response");
             const data = await response.json();
-            console.log("Server response after like toggle:", data);
-            
-        
+
             // Sync state with server response
-            console.log("Log before setHasLiked");
-            console.log("data:", data);
             setHasLiked(data.review.likedBy.includes(currentUserId));
-            console.log("Log after setHasLiked");
             setLikeCount(data.review.likedBy.length);
-            window.location.reload();
         } catch (error) {
             console.error("Error toggling like:", error);
 
@@ -71,7 +65,7 @@ const ReviewDetails = ({ review }) => {
 
     // Handle delete review
     const handleDelete = async () => {
-        const response = await fetch("/api/reviews/" + review._id, {
+        const response = await fetch(`/api/reviews/${review._id}`, {
             method: "DELETE",
         });
         const json = await response.json();
@@ -81,12 +75,9 @@ const ReviewDetails = ({ review }) => {
         }
     };
 
-    // Handle cases where review.user is null
-    const userProfilePicture = review.user?.profilePicture || "/default-gray-square.png"; // Default gray square image
+    // Default user information handling
+    const userProfilePicture = review.user?.profilePicture || "/default-gray-square.png";
     const userName = review.user?.name || "Anonymous";
-
-    console.log("Current user ID:", currentUserId);
-    console.log("Review user ID:", review.user);
 
     return (
         <div className="review-details">
@@ -106,20 +97,17 @@ const ReviewDetails = ({ review }) => {
                 {review.description}
             </p>
             <p>{formatDistanceToNow(new Date(review.createdAt), { addSuffix: true })}</p>
-            <button onClick={toggleLike}>
-                {hasLiked ? "Unlike" : "Like"} ({likeCount})
+            <button onClick={toggleLike} className="like-button">
+                <FontAwesomeIcon icon={faThumbsUp} />
+                <span className="like-count"> {likeCount}</span>
             </button>
-
-            {review.user._id === currentUserId && (
+            {review.user?._id === currentUserId && (
                 <span className="material-symbols-outlined" onClick={handleDelete}>
                     delete
                 </span>
             )}
         </div>
-
-        
     );
 };
 
 export default ReviewDetails;
-
