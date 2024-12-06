@@ -83,11 +83,13 @@ const ReviewDetails = ({ review }) => {
                     <span className="user-name">{userName}</span>
                 </div>
             </div>
-            <h4>{review.title}</h4>
+            <h4>Title: {review.title}</h4>
             <p>
                 <strong>Review: </strong>
                 {review.description}
+                
             </p>
+            <span className="star-rating">{'★'.repeat(review.stars)}</span>
             <div className="reviewed-item-container">
                 <img 
                     src={review.foodItem?.image || '/default-food-image.png'} 
