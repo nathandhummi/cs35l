@@ -70,7 +70,7 @@ const ReviewDetails = ({ review }) => {
     };
 
     // Handle delete review
-    const handleClick = async () => {
+    const handleDelete = async () => {
         const response = await fetch("/api/reviews/" + review._id, {
             method: "DELETE",
         });
@@ -84,6 +84,9 @@ const ReviewDetails = ({ review }) => {
     // Handle cases where review.user is null
     const userProfilePicture = review.user?.profilePicture || "/default-gray-square.png"; // Default gray square image
     const userName = review.user?.name || "Anonymous";
+
+    console.log("Current user ID:", currentUserId);
+    console.log("Review user ID:", review.user);
 
     return (
         <div className="review-details">
@@ -106,8 +109,9 @@ const ReviewDetails = ({ review }) => {
             <button onClick={toggleLike}>
                 {hasLiked ? "Unlike" : "Like"} ({likeCount})
             </button>
-            {review.user === currentUserId && (
-                <span className="material-symbols-outlined" onClick={handleClick}>
+
+            {review.user._id === currentUserId && (
+                <span className="material-symbols-outlined" onClick={handleDelete}>
                     delete
                 </span>
             )}
