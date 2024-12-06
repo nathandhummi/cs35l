@@ -37,7 +37,8 @@ const getReviewsByUser = async (req, res) => {
     try {
         // Find reviews with the specified user ObjectId and populate the user field
         const reviews = await Review.find({ user: userId })
-            .populate('user', 'name profilePicture') // Populate the 'user' field with 'name' and 'profilePicture'
+            .populate('user', 'name profilePicture') 
+            .populate ('foodItem') 
             .sort({ createdAt: -1 });
 
         // Send the reviews back to the client
@@ -51,6 +52,7 @@ const getReviewsByUser = async (req, res) => {
 const getReviews = async (req, res) => {
     // Fetch all reviews and populate the user field
     const reviews = await Review.find({})
+    .populate('foodItem')
     .populate('user', 'name profilePicture') // Populate the 'user' field with 'name' and 'profilePicture'
     .sort({ createdAt: -1 });
 

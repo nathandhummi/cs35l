@@ -11,7 +11,6 @@ const ReviewDetails = ({ review }) => {
     const [likeCount, setLikeCount] = useState(review.likedBy?.length || 0);
     const [hasLiked, setHasLiked] = useState(false);
 
-    // Fetch the current user and determine like status
     useEffect(() => {
         const fetchUser = async () => {
             try {
@@ -21,7 +20,6 @@ const ReviewDetails = ({ review }) => {
                 const data = await response.json();
                 setCurrentUserId(data.id);
 
-                // Check if the user has already liked the review
                 if (review.likedBy) {
                     setHasLiked(review.likedBy.includes(data.id));
                 }
@@ -33,15 +31,12 @@ const ReviewDetails = ({ review }) => {
         fetchUser();
     }, [review.likedBy]);
 
-    // Toggle like functionality
     const toggleLike = async () => {
         try {
-            // Optimistically update UI
             const isLiked = hasLiked || (review.likedBy?.includes(currentUserId));
             setHasLiked(!isLiked);
             setLikeCount((prev) => (isLiked ? prev - 1 : prev + 1));
 
-            // Send request to toggle like
             const response = await fetch(`/api/reviews/${review._id}/like`, {
                 method: "PATCH",
                 credentials: "include",
@@ -50,20 +45,15 @@ const ReviewDetails = ({ review }) => {
             if (!response.ok) throw new Error("Failed to toggle like");
 
             const data = await response.json();
-
-            // Sync state with server response
             setHasLiked(data.review.likedBy.includes(currentUserId));
             setLikeCount(data.review.likedBy.length);
         } catch (error) {
             console.error("Error toggling like:", error);
-
-            // Revert optimistic updates if an error occurs
             setHasLiked((prev) => !prev);
             setLikeCount((prev) => (hasLiked ? prev + 1 : prev - 1));
         }
     };
 
-    // Handle delete review
     const handleDelete = async () => {
         const response = await fetch(`/api/reviews/${review._id}`, {
             method: "DELETE",
@@ -75,9 +65,11 @@ const ReviewDetails = ({ review }) => {
         }
     };
 
-    // Default user information handling
     const userProfilePicture = review.user?.profilePicture || "/default-gray-square.png";
     const userName = review.user?.name || "Anonymous";
+    const foodItemName = review.foodItem?.name || "Unknown Food Item"; // Fallback if food item is not populated
+    const diningHallName =review.foodItem?.diningHall || "Unknown dining hall"
+
 
     return (
         <div className="review-details">
@@ -96,6 +88,18 @@ const ReviewDetails = ({ review }) => {
                 <strong>Review: </strong>
                 {review.description}
             </p>
+            <div className="reviewed-item-container">
+                <img 
+                    src={review.foodItem?.image || '/default-food-image.png'} 
+                    alt={foodItemName} 
+                    className="food-item-image" 
+                />
+                <p className="reviewed-item">
+                    <em>
+                      <strong>{foodItemName}</strong> from <strong>{diningHallName}</strong>
+                    </em>
+                </p>
+            </div>
             <p>{formatDistanceToNow(new Date(review.createdAt), { addSuffix: true })}</p>
             <button onClick={toggleLike} className="like-button">
                 <FontAwesomeIcon icon={faThumbsUp} />
@@ -108,6 +112,8 @@ const ReviewDetails = ({ review }) => {
             )}
         </div>
     );
+    
+    
 };
-
 export default ReviewDetails;
+

@@ -59,3 +59,28 @@
     font-size: 1rem;
     color: #666;
   }
+
+  /* Make the reviewed food item more subtle */
+/* Container for the reviewed item */
+.reviewed-item-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* Style for the food item image */
+.food-item-image {
+  width: 50px; /* Adjust size to make it small and subtle */
+  height: 50px;
+  object-fit: cover; /* Ensure the image fits without distortion */
+  border-radius: 8px; /* Optional: Rounded corners */
+  margin-right: 10px; /* Space between image and text */
+}
+
+/* Subtle styling for the reviewed item text */
+.reviewed-item {
+  font-size: 0.9rem;
+  color: #6c757d;
+  font-style: italic;
+}
+
