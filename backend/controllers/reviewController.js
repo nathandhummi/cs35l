@@ -76,36 +76,33 @@ const getReviews = async (req, res) => {
 
 //POST a new review
 const createReview = async (req, res) => {
-    const { title, description, foodItemId } = req.body;
+    const { title, description, foodItemId, stars } = req.body;
 
-    // Ensure the user is authenticated (req.user should be populated by Passport)
     if (!req.user) {
         return res.status(401).json({ error: 'Unauthorized: Please log in to create a review' });
     }
 
-    // Array to check if user left any fields empty
     let emptyFields = [];
     if (!title) emptyFields.push('title');
     if (!description) emptyFields.push('description');
     if (!foodItemId) emptyFields.push('foodItemId');
+    if (!stars || stars < 1 || stars > 5) emptyFields.push('stars');
 
-    // Check if any fields are empty
     if (emptyFields.length > 0) {
         return res.status(400).json({ error: 'Please fill in all the fields', emptyFields });
     }
 
-    // Validate foodItemId
     if (!mongoose.Types.ObjectId.isValid(foodItemId)) {
         return res.status(400).json({ error: 'Invalid food item ID' });
     }
 
     try {
-        // Create the review with the foodItemId reference and the logged-in user's ID
         const review = await Review.create({
             title,
             description,
             foodItem: foodItemId,
-            user: req.user._id, // Associate with the logged-in user
+            user: req.user._id,
+            stars
         });
 
         res.status(201).json(review);
@@ -113,6 +110,7 @@ const createReview = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
 
 
 

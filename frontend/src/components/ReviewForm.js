@@ -44,23 +44,6 @@ const ReviewForm = ({ foodItemId, userId }) => {
     <form className="create" onSubmit={handleSubmit}>
       <h3>Leave a Review</h3>
 
-      <label>Review Title:</label>
-      <input 
-        type="text" 
-        onChange={(e) => setTitle(e.target.value)} 
-        value={title}
-        className={emptyFields.includes('title') ? 'error' : ''}
-      />
-
-      <label>Description:</label>
-      <input 
-        type="text"
-        onChange={(e) => setDescription(e.target.value)} 
-        value={description}
-        className={emptyFields.includes('description') ? 'error' : ''}
-      />
-
-      <label>Star Rating:</label>
       <div className="star-rating">
         {[...Array(5)].map((_, index) => {
           const ratingValue = index + 1;
@@ -77,6 +60,23 @@ const ReviewForm = ({ foodItemId, userId }) => {
         })}
       </div>
       {emptyFields.includes('stars') && <p className="error">Star rating is required</p>}
+      <label>Review Title:</label>
+      <input 
+        type="text" 
+        onChange={(e) => setTitle(e.target.value)} 
+        value={title}
+        className={emptyFields.includes('title') ? 'error' : ''}
+      />
+
+      <label>Description:</label>
+      <input 
+        type="text"
+        onChange={(e) => setDescription(e.target.value)} 
+        value={description}
+        className={emptyFields.includes('description') ? 'error' : ''}
+      />
+
+      
 
       <button>Submit</button>
       {error && <div className="error">{error}</div>}
