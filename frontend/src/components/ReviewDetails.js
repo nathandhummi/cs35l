@@ -92,7 +92,7 @@ const ReviewDetails = ({ review }) => {
                 </div>
             </div>
             <span className="star-rate">{'★'.repeat(review.stars)}</span>
-            <h4>{review.title}</h4>
+            <h4>{review.title} </h4>
             <p>
                 <strong>Review: </strong>
                 {review.description}
