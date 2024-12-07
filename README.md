@@ -26,6 +26,8 @@ on the other terminal, change directory to backend: cd frontend
 
 
 **FRONTEND TERMINAL**
+
+
 install react-scripts:
   - npm install react-scripts
   - if you get an error when running this, run sudo chown -R 501:20 "/Users/<User>/.npm", then run again
@@ -37,6 +39,8 @@ install fonts and images:
   - npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
 
 **BACKEND TERMINAL**
+
+
 install dotenv:
   - npm install dotenv
 
