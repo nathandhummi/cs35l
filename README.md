@@ -40,7 +40,8 @@ install fonts and images:
 
 **BACKEND TERMINAL**
 
-
+install MongoDB:
+ - npm install mongoose
 install dotenv:
   - npm install dotenv
 
